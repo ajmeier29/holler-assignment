@@ -1,0 +1,17 @@
+{
+  "Groups":
+    [
+      {
+        "name": "groupA",
+        "weight": 0.4
+      },
+      {
+        "name": "groupB",
+        "weight": 0.1
+      },
+      {
+        "name" : "groupC",
+        "weight": 0.5
+      }
+    ]
+}
