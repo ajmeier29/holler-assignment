@@ -37,12 +37,12 @@ public class UserAssignmentService
     /// Gets the group a user is in. If the user is not already in a group, they are dynamically assigned based off of the
     /// weighted amounts in the groupWeights.json file.
     /// </summary>
-    /// <param name="newUserId"></param>
+    /// <param name="userId"></param>
     /// <returns></returns>
-    public string GetUserGroup(Guid newUserId)
+    public string GetUserGroup(Guid userId)
     {
         // Get random number
-        var randomNumber = random.NextDouble(0.0, _totalWeight);
+        var randomNumber = random.NextDouble() * 100;
 
         #region Group Assignment
         // Get the group to be assigned to
@@ -58,7 +58,7 @@ public class UserAssignmentService
         // Assign the group and store it. 
         UserGroups assignedUser = new UserGroups
         {
-            UserId = newUserId,
+            UserId = userId,
             AssignedGroup = groupAssignment
         };
         // Read current data
@@ -66,7 +66,7 @@ public class UserAssignmentService
         List<UserGroups> assignedUsers = JsonSerializer.Deserialize<List<UserGroups>>(file);
 
         // Search for duplicates
-        UserGroups userAssigned = assignedUsers.Find(x => x.UserId == newUserId);
+        UserGroups userAssigned = assignedUsers.Find(x => x.UserId == userId);
 
         if(userAssigned == default(UserGroups))   // Save new user if not found
         {
